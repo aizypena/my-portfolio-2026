@@ -6,8 +6,8 @@ const experiences = [
   {
     title: 'Software Engineer Intern',
     company: 'Teratomo Corporation',
-    period: 'Recent Experience',
-    duration: 'Internship',
+    period: 'December 2025 - March 2026',
+    duration: '4 Months',
     description: [
       'Developed a comprehensive end-to-end payroll generation system, managing both frontend user interfaces and backend logic to automate company-wide processing.',
       'Architected database schemas and server-side API endpoints to ensure accurate calculation of earnings, deductions, and tax compliance.',
@@ -24,8 +24,8 @@ const experiences = [
   {
     title: 'Web Developer',
     company: 'Clean Up Australia',
-    period: 'Professional Experience',
-    duration: 'Project Role',
+    period: 'July 2023 - July 2025',
+    duration: '2 Years',
     description: [
       'Designed and launched the official organization website, focusing on an intuitive user experience and responsive design across all devices.',
       'Implemented modern web technologies to enhance site performance, ensuring fast load times and high accessibility for a diverse user base.',
@@ -39,6 +39,18 @@ const experiences = [
       'Performance Optimization',
       'CMS Features',
     ],
+  },
+  {
+    title: 'Web Developer',
+    company: 'Quintegral Philippines',
+    period: 'January 2022 - April 2023',
+    duration: '1 Year 4 Months',
+    description: [
+      'Engineered dynamic and reusable UI components using React, ensuring a modular codebase and consistent design across the platform.',
+      'Optimized frontend performance and rendering to maintain fast load times and smooth transactions.',
+      'Collaborated on the integration of RESTful APIs, ensuring efficient data synchronization between React frontend and backend services.',
+    ],
+    tech: ['React', 'Reusable Components', 'Frontend Performance', 'RESTful APIs', 'Data Sync'],
   },
 ]
 

@@ -71,7 +71,7 @@ export default function Hero() {
           {profile.role}
         </h2>
 
-        <div className={`mb-6 text-sm md:text-base ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+        {/* <div className={`mb-6 text-sm md:text-base ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
           <a
             href={`mailto:${profile.email}`}
             className={`transition-colors ${dark ? 'hover:text-cyan-400' : 'hover:text-cyan-600'}`}
@@ -92,7 +92,7 @@ export default function Hero() {
           >
             {profile.phone}
           </a>
-        </div>
+        </div> */}
 
         <p
           className={`max-w-2xl mx-auto mb-10 text-base md:text-lg leading-relaxed ${

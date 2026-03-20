@@ -62,6 +62,9 @@ const skillSets: {
       'Docker',
       'Figma',
       'AWS CLI',
+      'Claude AI',
+      'Gemini AI',
+      'ChatGPT AI',
     ],
   },
 ]

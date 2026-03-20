@@ -69,79 +69,115 @@ export default function Projects() {
 
           {/* Project grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <div
-                key={project.title}
-                className={`group p-6 rounded-2xl border transition-all duration-500 hover:-translate-y-2 flex flex-col ${
-                  dark
-                    ? 'bg-slate-800/30 border-slate-700/50 hover:border-cyan-500/30'
-                    : 'bg-white border-slate-200 hover:border-cyan-400 shadow-sm hover:shadow-lg'
-                }`}
-              >
-                {/* Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <Folder className={dark ? 'text-cyan-400' : 'text-cyan-500'} size={32} />
-                  <div className="flex gap-3">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`transition-colors ${
-                          dark ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-400 hover:text-cyan-600'
-                        }`}
-                        aria-label="View on GitHub"
+            {projects.map((project) => {
+              const destination = project.live || project.github
+              const clickable = Boolean(destination)
+
+              const openProject = () => {
+                if (!destination) return
+                window.open(destination, '_blank', 'noopener,noreferrer')
+              }
+
+              return (
+                <div
+                  key={project.title}
+                  role={clickable ? 'button' : undefined}
+                  tabIndex={clickable ? 0 : -1}
+                  onClick={clickable ? openProject : undefined}
+                  onKeyDown={
+                    clickable
+                      ? (e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            openProject()
+                          }
+                        }
+                      : undefined
+                  }
+                  className={`group relative overflow-hidden p-6 rounded-2xl border transition-all duration-500 hover:-translate-y-2 flex flex-col ${
+                    dark
+                      ? 'bg-slate-800/30 border-slate-700/50 hover:border-cyan-500/30'
+                      : 'bg-white border-slate-200 hover:border-cyan-400 shadow-sm hover:shadow-lg'
+                  } ${clickable ? 'cursor-pointer' : ''}`}
+                >
+                  <div
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                      dark ? 'bg-slate-950/70' : 'bg-slate-900/65'
+                    }`}
+                  />
+                  <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                    <span className="px-4 py-2 rounded-full bg-white text-slate-900 text-sm font-semibold">
+                      Overview
+                    </span>
+                  </div>
+
+                  {/* Header */}
+                  <div className="relative z-20 flex items-center justify-between mb-4">
+                    <Folder className={dark ? 'text-cyan-400' : 'text-cyan-500'} size={32} />
+                    <div className="flex gap-3">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className={`transition-colors ${
+                            dark ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-400 hover:text-cyan-600'
+                          }`}
+                          aria-label="View on GitHub"
+                        >
+                          <Github size={20} />
+                        </a>
+                      )}
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className={`transition-colors ${
+                            dark ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-400 hover:text-cyan-600'
+                          }`}
+                          aria-label="View live demo"
+                        >
+                          <ExternalLink size={20} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <h3
+                    className={`relative z-20 text-xl font-bold mb-2 transition-colors ${
+                      dark
+                        ? 'text-white group-hover:text-cyan-300'
+                        : 'text-slate-900 group-hover:text-cyan-100'
+                    }`}
+                  >
+                    {project.title}
+                  </h3>
+                  <p className={`relative z-20 text-sm leading-relaxed mb-6 grow ${dark ? 'text-slate-400 group-hover:text-slate-200' : 'text-slate-500 group-hover:text-slate-100'}`}>
+                    {project.description}
+                  </p>
+
+                  {/* Tech stack */}
+                  <div
+                    className={`relative z-20 flex flex-wrap gap-x-3 gap-y-1 mt-auto pt-4 border-t ${
+                      dark ? 'border-slate-700/50' : 'border-slate-200 group-hover:border-slate-300/40'
+                    }`}
+                  >
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className={`text-xs font-mono ${dark ? 'text-slate-500 group-hover:text-slate-300' : 'text-slate-400 group-hover:text-slate-100'}`}
                       >
-                        <Github size={20} />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`transition-colors ${
-                          dark ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-400 hover:text-cyan-600'
-                        }`}
-                        aria-label="View live demo"
-                      >
-                        <ExternalLink size={20} />
-                      </a>
-                    )}
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                {/* Content */}
-                <h3
-                  className={`text-xl font-bold mb-2 transition-colors ${
-                    dark
-                      ? 'text-white group-hover:text-cyan-400'
-                      : 'text-slate-900 group-hover:text-cyan-600'
-                  }`}
-                >
-                  {project.title}
-                </h3>
-                <p className={`text-sm leading-relaxed mb-6 grow ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-                  {project.description}
-                </p>
-
-                {/* Tech stack */}
-                <div
-                  className={`flex flex-wrap gap-x-3 gap-y-1 mt-auto pt-4 border-t ${
-                    dark ? 'border-slate-700/50' : 'border-slate-200'
-                  }`}
-                >
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className={`text-xs font-mono ${dark ? 'text-slate-500' : 'text-slate-400'}`}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
