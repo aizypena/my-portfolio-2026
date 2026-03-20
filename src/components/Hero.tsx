@@ -1,10 +1,25 @@
-import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ChevronDown, Github, Linkedin, Mail, Rocket } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import { profile } from '../data/profile'
 
 export default function Hero() {
   const { theme } = useTheme()
   const dark = theme === 'dark'
+  const [showBeamButton, setShowBeamButton] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowBeamButton(window.scrollY > 420)
+    }
+
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const beamMeUp = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <section
@@ -172,6 +187,54 @@ export default function Hero() {
       >
         <ChevronDown size={28} />
       </a>
+
+      <div
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
+          showBeamButton
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-3 pointer-events-none'
+        }`}
+      >
+        <div
+          className={`absolute -top-14 -left-26 px-3 py-2 rounded-2xl text-xs md:text-sm whitespace-nowrap ${
+            dark
+              ? 'bg-slate-800/95 text-cyan-300 border border-cyan-500/30'
+              : 'bg-white text-cyan-700 border border-cyan-200 shadow-sm'
+          }`}
+        >
+          Beam me up, Scotty!
+        </div>
+        <span
+          className={`absolute -top-4 -left-3 h-2.5 w-2.5 rounded-full ${
+            dark ? 'bg-slate-800 border border-cyan-500/25' : 'bg-white border border-cyan-200'
+          }`}
+        />
+        <span
+          className={`absolute -top-1 -left-0.5 h-1.5 w-1.5 rounded-full ${
+            dark ? 'bg-slate-800 border border-cyan-500/20' : 'bg-white border border-cyan-200'
+          }`}
+        />
+
+        <div
+          role="link"
+          tabIndex={0}
+          onClick={beamMeUp}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              beamMeUp()
+            }
+          }}
+          className={`grid place-items-center h-11 w-11 rounded-full cursor-pointer transition-all duration-300 ${
+            dark
+              ? 'bg-slate-800/90 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400/60 hover:-translate-y-0.5'
+              : 'bg-white text-cyan-700 border border-cyan-200 shadow-md hover:border-cyan-400 hover:-translate-y-0.5'
+          }`}
+          aria-label="Beam me up to top"
+        >
+          <Rocket size={18} />
+        </div>
+      </div>
     </section>
   )
 }
