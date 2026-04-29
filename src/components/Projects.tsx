@@ -105,11 +105,6 @@ export default function Projects() {
                       dark ? 'bg-slate-950/70' : 'bg-slate-900/65'
                     }`}
                   />
-                  <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                    <span className="px-4 py-2 rounded-full bg-white text-slate-900 text-sm font-semibold">
-                      Overview
-                    </span>
-                  </div>
 
                   {/* Header */}
                   <div className="relative z-20 flex items-center justify-between mb-4">

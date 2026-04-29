@@ -42,7 +42,7 @@ export default function Contact() {
             message = data.error
           }
         } else if (response.status === 404) {
-          message = 'Contact API not found. If testing locally, run with Vercel (vercel dev).'
+          message = 'Contact API not found.'
         }
 
         throw new Error(message)
